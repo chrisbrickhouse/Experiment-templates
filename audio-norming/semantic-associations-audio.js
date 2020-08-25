@@ -14,8 +14,11 @@ const stimuli = (function() {
   return json;
 })();
 
+var n = 1;
+var stimuli_subset = jsPsych.randomization.sampleWithoutReplacement(stimuli, n);
+
 // Get files to preload
-const audio = stimuli.map(function (x) { return x["audio"];});
+const audio = stimuli_subset.map(function (x) { return x["audio"];});
 console.log(stimuli);
 //var video = [];
 
@@ -34,7 +37,7 @@ var audio_free_response_procedure = {
 			]
 		}
 	],
-	timeline_variables: stimuli,
+	timeline_variables: stimuli_subset,
 	randomize_order: true
 };
 
