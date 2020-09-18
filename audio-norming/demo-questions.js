@@ -219,7 +219,7 @@ var zip_question = make_question(
     html_input({
         type: 'textbox',
         name: 'location-current',
-        pattern: '(|\d\d\d)',
+        pattern: '(|\\d\\d\\d)',
         placeholder: '000'
     }));
 
