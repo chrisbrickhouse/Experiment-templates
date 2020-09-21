@@ -14,7 +14,7 @@ const stimuli = (function() {
   return json;
 })();
 
-var n = 1;
+var n = 5;
 var stimuli_subset = jsPsych.randomization.sampleWithoutReplacement(stimuli, n);
 
 // Get files to preload
@@ -81,14 +81,41 @@ var intro_1 = {
     stimulus: 'Welcome to the experiment. Press any key to continue.'
 }
 
-timeline.push(intro_1);
-
 var intro_2 = {
     type: 'html-keyboard-response',
     stimulus: '<p>In this experiment, you will be asked to give the first ' +
 	"word that comes to mind after hearing a word.</p><p>Do not think too " +
     "hard about your response and try to work quickly.</p>" +
 	"<p>Press any key to continue.</p>"
+}
+
+var audio_test = {
+	timeline: [
+        {
+			type: 'html-button-response',
+			stimulus: 'Before we start, we would like to test your audio. Make sure your speakers are on, then press the button to continue',
+			choices: ['Test my speakers']
+		},
+		{
+			type: 'audio-keyboard-response',
+			stimulus: jsPsych.timelineVariable('audio'),
+			choices: jsPsych.NO_KEYS,
+			trial_ends_after_audio: true
+		},
+		{
+			type: 'survey-text',
+			questions: [
+				{prompt: "What word did you just hear?", required:true}
+			]
+		}
+	],
+	timeline_variables: [stimuli_subset[Math.floor(Math.random() * stimuli_subset.length)]]
+};
+
+var interlude = {
+    type: 'html-button-response',
+    stimulus: 'Thanks for testing your speakers! If there are no problems, press the button below to start the experiment.',
+    choices: ['Start the experiment']
 }
 
 var exit_1 = {
@@ -126,6 +153,7 @@ var timeline = [consent];
 
 timeline.push(intro_1);
 timeline.push(intro_2);
+timeline.push(audio_test);
 timeline.push(audio_free_response_procedure);
 timeline.push(exit_1);
 timeline.push(exit_2);
