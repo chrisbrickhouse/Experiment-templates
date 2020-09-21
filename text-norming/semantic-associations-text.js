@@ -135,7 +135,7 @@ jsPsych.init({
 	//preload_audio: audio,
 	//preload_images: images,
 	//preload_video: video,
-	on_finish: function() {
+	on_finish: function(data) {
 		//jsPsych.data.displayData();
         proliferate.submit({"trials": data.values()})
 	}

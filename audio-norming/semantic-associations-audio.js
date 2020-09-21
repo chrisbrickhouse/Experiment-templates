@@ -134,7 +134,7 @@ timeline.push(exit_3);
 jsPsych.init({
 	timeline: timeline,
 	preload_audio: audio,
-	on_finish: function() {
+	on_finish: function(data) {
 		//jsPsych.data.displayData();
         proliferate.submit({"trials": data.values()})
 	}
