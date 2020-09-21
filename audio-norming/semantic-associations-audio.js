@@ -24,6 +24,12 @@ console.log(stimuli);
 
 var audio_free_response_procedure = {
 	timeline: [
+        {
+			type: 'html-keyboard-response',
+			stimulus: '+',
+			choices: jsPsych.NO_KEYS,
+			trial_duration: 500
+		},
 		{
 			type: 'audio-keyboard-response',
 			stimulus: jsPsych.timelineVariable('audio'),
@@ -33,7 +39,7 @@ var audio_free_response_procedure = {
 		{
 			type: 'survey-text',
 			questions: [
-				{prompt: "What is the first word that comes to mind?"}
+				{prompt: "What is the first word that comes to mind?", required:true}
 			]
 		}
 	],
@@ -43,9 +49,36 @@ var audio_free_response_procedure = {
 
 var timeline = [];
 
+// Consent slide 
+var consent = {
+    type: 'html-button-response',
+    stimulus: '<div style="text-align: left; margin-left: 10%; margin-right: 10%">' +
+    '<p>We invite you to participate in a research study on language production and comprehension. ' +
+    'Your experimenter will ask you to do a linguistic task such as reading sentences or words, naming ' +
+    'pictures or describing scenes, making up sentences of your own, or participating in a simple language ' +
+    'game.</p>' +
+    '<p>There are no risks or benefits of any kind involved in this study.</p>'+
+    '<p>You will be paid for your participation at the posted rate.</p>'+
+    '<p>If you have read this form and have decided to participate in this experiment, please understand ' +
+    'your participation is voluntary and you have the right to withdraw your consent or discontinue ' +
+    'participation at any time without penalty or loss of benefits to which you are otherwise entitled. ' +
+    'You have the right to refuse to do particular tasks. Your individual privacy will be maintained in ' +
+    'all published and written data resulting from the study. You may print this form for your records.</p>' +
+    '<h2>CONTACT INFORMATION:</h2>' +
+    '<p>If you have any questions, concerns or complaints about this research study, its procedures, risks ' +
+    'and benefits, you should contact the Protocol Director Meghan Sumner at (650)-725-9336.</p>' +
+    '<p>If you are not satisfied with how this study is being conducted, or if you have any concerns, ' + 'complaints, or general questions about the research or your rights as a participant, please contact ' +
+    'the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at ' +
+    '(650)-723-2480 or toll free at 1-866-680-2906. You can also write to the Stanford IRB, Stanford ' +
+    'University, 3000 El Camino Real, Five Palo Alto Square, 4th Floor, Palo Alto, CA 94306 USA.</p>' +
+    '<p>If you agree to participate, please proceed to the study tasks.</p>' +
+    '</div>',
+    choices: ['Agree and continue']
+}
+
 var intro_1 = {
     type: 'html-keyboard-response',
-    stimulus: 'Welcome to the experiment. Press any key to begin'
+    stimulus: 'Welcome to the experiment. Press any key to continue.'
 }
 
 timeline.push(intro_1);
@@ -55,8 +88,8 @@ var intro_2 = {
     stimulus: '<p>In this experiment, you will be asked to give the first ' +
 	"word that comes to mind after hearing a word.</p><p>Do not think too " +
     "hard about your response and try to work quickly.</p>" +
-	"<p>Press any key to begin.</p>"
-};
+	"<p>Press any key to continue.</p>"
+}
 
 var exit_1 = {
     type: 'html-keyboard-response',
@@ -89,7 +122,7 @@ var exit_3 = {
         '</ol>'
 };
 
-var timeline = [];
+var timeline = [consent];
 
 timeline.push(intro_1);
 timeline.push(intro_2);
@@ -102,6 +135,7 @@ jsPsych.init({
 	timeline: timeline,
 	preload_audio: audio,
 	on_finish: function() {
-		jsPsych.data.displayData();
+		//jsPsych.data.displayData();
+        proliferate.submit({"trials": data.values()})
 	}
 });
