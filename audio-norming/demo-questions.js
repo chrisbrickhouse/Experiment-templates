@@ -238,3 +238,10 @@ var other_accent_question = make_question("Do most of your friends speak with a 
         type: 'yes-no',
         name: 'other-accent-southern'
 }));
+
+var politics_question = make_question("What is your political association?", html_input({
+    type: 'textbox',
+    name: 'politics',
+    pattern: '.*',
+    placeholder: 'Democrat, Republican, etc'
+}));

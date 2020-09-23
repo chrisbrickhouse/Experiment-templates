@@ -146,6 +146,7 @@ var exit_3 = {
         language_question +
         own_accent_question +
         other_accent_question +
+        politics_question +
         '</ol>'
 };
 
