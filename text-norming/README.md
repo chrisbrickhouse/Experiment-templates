@@ -7,7 +7,7 @@ This experiment uses GNU Make to automate the experiment setup. If you do not wa
 ### Quickstart
 
  1. Ensure that you have installed GNU Make
- 2. Add your stimuli to the file *wordlist.txt* where each line is its own stimulus. **Do not use single quotes (') or double quotes (")** as this will interfere with the script.
+ 2. Add your stimuli to the file [wordlist.txt](wordlist.txt) where each line is its own stimulus. **Do not use single quotes (') or double quotes (")** as this will interfere with the script.
  3. Run `make stimuli` in your terminal or command line
  4. Check *stimuli.json* to ensure that your stimuli were properly converted to timeline variables
- 5. Run the experiment
+ 5. Open `experiment.html` in your web browser and test the experiment
